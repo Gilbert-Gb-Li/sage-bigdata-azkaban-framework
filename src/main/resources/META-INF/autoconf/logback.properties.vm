@@ -1,0 +1,2 @@
+logPath = ${logPath}
+logPattern=${logPattern}

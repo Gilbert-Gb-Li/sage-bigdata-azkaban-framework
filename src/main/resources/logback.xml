@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+  <property resource="logback.properties" />
+  ​
+  <appender name="STDOUT-APPENDER" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>${logPattern}</pattern>
+      <charset>UTF-8</charset>
+    </encoder>
+  </appender>
+
+  <appender name="ERROR-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${logPath}/error.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${logPath}/archive/error.log.%d{yyyyMMdd}.gz</fileNamePattern>
+      <maxHistory>7</maxHistory>
+    </rollingPolicy>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>ERROR</level>
+    </filter>
+    <encoder>
+      <pattern>${logPattern}</pattern>
+      <charset>UTF-8</charset>
+    </encoder>
+  </appender>
+
+  <appender name="INFO-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${logPath}/info.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${logPath}/archive/info.log.%d{yyyyMMdd}.gz</fileNamePattern>
+      <maxHistory>7</maxHistory>
+    </rollingPolicy>
+    <encoder>
+      <pattern>${logPattern}</pattern>
+      <charset>UTF-8</charset>
+    </encoder>
+  </appender>
+
+  <logger name="com.haima.sage.bigdata.azkaban" additivity="false">
+    <level value="INFO"/>
+    <appender-ref ref="INFO-APPENDER" />
+    <appender-ref ref="ERROR-APPENDER"/>
+  </logger>
+
+  <root level="INFO">
+    <appender-ref ref="STDOUT-APPENDER"/>
+    <appender-ref ref="INFO-APPENDER"/>
+    <appender-ref ref="ERROR-APPENDER"/>
+  </root>
+</configuration>

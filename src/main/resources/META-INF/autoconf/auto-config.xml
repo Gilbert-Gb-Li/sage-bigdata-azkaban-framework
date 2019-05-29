@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config>
+  <group name="mysql">
+    <property name="db.mysql.url" defaultValue="jdbc:mysql://172.16.2.120:3306/sage_bigdata?useUnicode=true&amp;characterEncoding=utf-8"/>
+    <property name="db.mysql.username" defaultValue="bigdata"/>
+    <property name="db.mysql.password" defaultValue="bigdata"/>
+  </group>
+
+  <group name="azkaban">
+    <property name="shell.script.path" defaultValue="/data/service/azkaban-script"/>
+    <property name="shell.logs.path" defaultValue="/data/log/azkaban"/>
+  </group>
+
+  <group name="log">
+    <property name="logPath" defaultValue="/data/log/azkaban"/>
+    <property name="logPattern" defaultValue="%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%logger{10}] %msg%n"/>
+  </group>
+
+  <script>
+    <generate template="config.properties.vm" destfile="config.properties"/>
+    <generate template="logback.properties.vm" destfile="logback.properties"/>
+  </script>
+</config>
